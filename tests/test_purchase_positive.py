@@ -23,6 +23,7 @@ class TestPurchase:
         login_page.navigate()
         # Log in as a `standard user`
         login_page.submit_login_form(user)
+        inventory_page.validate_login_successful()
         # Find an item by name, then add it to the cart
         inventory_page.add_item_to_cart(shopping_item_1)
         # Find a second item by name, and add it to the cart as well
@@ -49,6 +50,7 @@ class TestPurchase:
         inventory_page = Inventory(page)
         login_page.navigate()
         login_page.submit_login_form(user)
+        inventory_page.validate_login_successful()
         # Sort products by name
         inventory_page.verify_active_sorting_option("Name (A to Z)")
         # Validate that the sorting is right
@@ -59,6 +61,7 @@ class TestPurchase:
         inventory_page = Inventory(page)
         login_page.navigate()
         login_page.submit_login_form(user)
+        inventory_page.validate_login_successful()
         # Sort products by price
         inventory_page.select_sorting_option("lohi")
         inventory_page.verify_active_sorting_option("Price (low to high)")
