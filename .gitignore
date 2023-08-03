@@ -1,0 +1,6 @@
+.DS_Store
+venv
+allure_report/*
+.idea
+.pytest_cache
+tests/.pytest_cache
