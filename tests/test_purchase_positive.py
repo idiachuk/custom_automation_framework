@@ -49,7 +49,9 @@ class TestPurchase:
         inventory_page = Inventory(page)
         login_page.navigate()
         login_page.submit_login_form(user)
+        # Sort products by name
         inventory_page.verify_active_sorting_option("Name (A to Z)")
+        # Validate that the sorting is right
         inventory_page.verify_sorting_by_name_is_correct()
 
     def test_sort_items_by_price(self, page):
@@ -57,6 +59,8 @@ class TestPurchase:
         inventory_page = Inventory(page)
         login_page.navigate()
         login_page.submit_login_form(user)
+        # Sort products by price
         inventory_page.select_sorting_option("lohi")
         inventory_page.verify_active_sorting_option("Price (low to high)")
+        # Validate that the sorting is right
         inventory_page.verify_sorting_by_price_is_correct()
