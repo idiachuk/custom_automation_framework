@@ -1,5 +1,4 @@
 import time
-from playwright.sync_api import Page, expect
 
 from pages.pages import *
 
@@ -12,8 +11,8 @@ shopping_item_2 = "Sauce Labs Bike Light"
 checkout_info = {
     "firstname": "Igor",
     "lastname": "Diachuk",
-    "zip": "3139"
-}
+    "zip": "3139"}
+
 
 class TestPurchase:
     def test_purchase_positive(self, page):
@@ -44,3 +43,20 @@ class TestPurchase:
         checkout_page.click_finish()
         # Validate that the website confirms the order
         checkout_page.validate_order_confirmed()
+
+    def test_sort_items_by_name(self, page):
+        login_page = Login(page)
+        inventory_page = Inventory(page)
+        login_page.navigate()
+        login_page.submit_login_form(user)
+        inventory_page.verify_active_sorting_option("Name (A to Z)")
+        inventory_page.verify_sorting_by_name_is_correct()
+
+    def test_sort_items_by_price(self, page):
+        login_page = Login(page)
+        inventory_page = Inventory(page)
+        login_page.navigate()
+        login_page.submit_login_form(user)
+        inventory_page.select_sorting_option("lohi")
+        inventory_page.verify_active_sorting_option("Price (low to high)")
+        inventory_page.verify_sorting_by_price_is_correct()

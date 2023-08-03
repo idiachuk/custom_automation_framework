@@ -1,5 +1,6 @@
 from playwright.sync_api import Page, expect
 
+
 class Login:
     def __init__(self, page):
         self.page = page
@@ -9,7 +10,7 @@ class Login:
         return self.page.get_by_placeholder("Username")
 
     @property
-    def pasword_field(self):
+    def password_field(self):
         return self.page.get_by_placeholder("Password")
 
     @property
@@ -18,7 +19,7 @@ class Login:
 
     def submit_login_form(self, user):
         self.login_field.fill(user["username"])
-        self.pasword_field.fill(user["password"])
+        self.password_field.fill(user["password"])
         self.login_button.click()
 
     def navigate(self):
@@ -29,15 +30,44 @@ class Inventory:
     def __init__(self, page):
         self.page = page
 
-    @property
-    def shopping_items(self):
-        return self.page.locators('//div[@id="inventory_container"]')
+    def shopping_items_names(self):
+        elements = self.page.locator('//div[@class="inventory_item_name"]').all_text_contents()
+        return elements
+
+    def shopping_items_prices(self):
+        elements = self.page.locator('//div[@class="inventory_item_price"]').all_text_contents()
+        return elements
 
     def shopping_item(self, name):
-        return self.page.locator(f'//div[@class="inventory_item_name" and text() = "{name}"]/../../following-sibling::div/button')
+        return self.page.locator(
+            f'//div[@class="inventory_item_name" and text() = "{name}"]/../../following-sibling::div/button')
+
+    def product_sort_container(self):
+        return self.page.locator('//select[@class="product_sort_container"]')
+
+    def sorting_active_option(self):
+        return self.page.locator('//span[@class="active_option"]')
 
     def add_item_to_cart(self, name):
         self.shopping_item(name).click()
+
+    def select_sorting_option(self, sorting_option):
+        self.product_sort_container().select_option(sorting_option)
+
+    def verify_active_sorting_option(self, expected_sorting_option):
+        expect(self.sorting_active_option()).to_have_text(expected_sorting_option)
+
+    def verify_sorting_by_name_is_correct(self):
+        initial_items_list = self.shopping_items_names()
+        sorted_list = sorted(initial_items_list)
+        print(initial_items_list, sorted_list)
+        assert initial_items_list == sorted_list
+
+    def verify_sorting_by_price_is_correct(self):
+        initial_items_list = self.shopping_items_prices()
+        sorted_list = sorted(initial_items_list, key=lambda x: float(x[1:]))
+        print(initial_items_list, sorted_list)
+        assert initial_items_list == sorted_list
 
 
 class Cart:
@@ -137,6 +167,7 @@ class Checkout:
     def validate_order_confirmed(self):
         expect(self.page).to_have_url("https://www.saucedemo.com/checkout-complete.html")
         expect(self.order_confirmation_text()).to_be_visible()
-        expect(self.complete_confirmation_text()).to_have_text("Your order has been dispatched, and will arrive just as fast as the pony can get there!")
+        expect(self.complete_confirmation_text()).to_have_text(
+            "Your order has been dispatched, and will arrive just as fast as the pony can get there!")
         expect(self.checkout_complete_text()).to_have_text("Checkout: Complete!")
         expect(self.back_home_button()).to_be_visible()
