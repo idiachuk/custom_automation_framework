@@ -18,7 +18,7 @@ class Login:
     def login_button(self):
         return self.page.locator('//input[@type="submit"]')
 
-    @allure.step
+    @allure.step('Submit Login form')
     def submit_login_form(self, user):
         self.login_field.fill(user["username"])
         self.password_field.fill(user["password"])

@@ -15,6 +15,7 @@ checkout_info = {
 
 
 class TestPurchase:
+    @allure.title("Purchase Positive Test")
     def test_purchase_positive(self, page):
         login_page = Login(page)
         inventory_page = Inventory(page)
@@ -45,6 +46,7 @@ class TestPurchase:
         # Validate that the website confirms the order
         checkout_page.validate_order_confirmed()
 
+    @allure.title("Verify correct sorting by Name")
     def test_sort_items_by_name(self, page):
         login_page = Login(page)
         inventory_page = Inventory(page)
@@ -56,6 +58,7 @@ class TestPurchase:
         # Validate that the sorting is right
         inventory_page.verify_sorting_by_name_is_correct()
 
+    @allure.title("Verify correct sorting by Price")
     def test_sort_items_by_price(self, page):
         login_page = Login(page)
         inventory_page = Inventory(page)

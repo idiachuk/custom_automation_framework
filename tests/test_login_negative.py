@@ -7,6 +7,7 @@ user = {
 
 
 class TestLogin:
+    @allure.title("Negative Login")
     def test_login_negative(self, page):
         login_page = Login(page)
         inventory_page = Inventory(page)
