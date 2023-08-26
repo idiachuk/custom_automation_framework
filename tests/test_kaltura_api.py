@@ -1,9 +1,5 @@
 import allure
-import requests
-import json
-from time import gmtime, strftime, localtime
-import pytest
-import concurrent.futures
+from time import strftime, localtime
 import random
 import string
 from conftest import *
