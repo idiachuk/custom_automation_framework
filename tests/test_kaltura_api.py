@@ -1,20 +1,7 @@
 import allure
 from time import strftime, localtime
-import random
-import string
 from conftest import *
 
-
-def randname(x):
-    return str(''.join(random.choices(string.ascii_letters, k=x)))
-
-
-def randnumber(x):
-    return str(''.join(random.choices(string.digits, k=x)))
-
-
-baseUrl = "https://api.frs1.ott.kaltura.com"
-headers = {"Content-Type": "application/json"}
 
 payload_positive = {
     "apiVersion": "6.0.0",
@@ -122,10 +109,3 @@ def test_post_login(register, create_user):
     date_string = strftime('%Y-%m-%d %H:%M:%S', localtime(last_login_date))
     print(f'lastLoginDate:  {date_string}')
     allure.attach(str(date_string), name="lastLoginDate", attachment_type=allure.attachment_type.JSON)
-
-
-# @allure.title("Register a new user Negative")
-# @pytest.mark.parametrize('register', [payload_positive], indirect=True)
-# def test_post_register_negative(register, create_user):
-#     user = create_user
-#     print(user.username, user.password)

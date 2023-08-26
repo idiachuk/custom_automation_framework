@@ -1,9 +1,19 @@
 import json
 import pytest
 import requests
+import random
+import string
 
 baseUrl = "https://api.frs1.ott.kaltura.com"
 headers = {"Content-Type": "application/json"}
+
+
+def randname(x):
+    return str(''.join(random.choices(string.ascii_letters, k=x)))
+
+
+def randnumber(x):
+    return str(''.join(random.choices(string.digits, k=x)))
 
 
 class KalturaUser:
