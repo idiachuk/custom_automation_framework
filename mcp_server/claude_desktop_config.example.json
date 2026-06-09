@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest"]
+    },
+    "automation-test-runner": {
+      "command": "python3",
+      "args": [
+        "/Users/eparadize/Documents/custom_automation_framework/mcp_server/test_runner_server.py"
+      ]
+    }
+  }
+}

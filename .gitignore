@@ -4,3 +4,6 @@ allure_report/*
 .idea
 .pytest_cache
 tests/.pytest_cache
+__pycache__/
+.mcp_last_run.json
+.playwright-mcp/
