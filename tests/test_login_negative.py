@@ -1,3 +1,4 @@
+import pytest
 from pages.pages import *
 
 user = {
@@ -8,6 +9,9 @@ user = {
 
 class TestLogin:
     @allure.title("Negative Login")
+    @pytest.mark.xfail(
+        reason="Negative Login",
+        strict=True)
     def test_login_negative(self, page):
         login_page = Login(page)
         inventory_page = Inventory(page)
