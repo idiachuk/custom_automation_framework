@@ -37,16 +37,16 @@ class Inventory:
         return self.page.url
 
     def shopping_items_names(self):
-        elements = self.page.locator('//div[@class="inventory_item_name"]').all_text_contents()
+        elements = self.page.locator('//div[contains(@class, "inventory_item_name")]').all_text_contents()
         return elements
 
     def shopping_items_prices(self):
-        elements = self.page.locator('//div[@class="inventory_item_price"]').all_text_contents()
+        elements = self.page.locator('//div[contains(@class, "inventory_item_price")]').all_text_contents()
         return elements
 
     def shopping_item(self, name):
         return self.page.locator(
-            f'//div[@class="inventory_item_name" and text() = "{name}"]/../../following-sibling::div/button')
+            f'//div[contains(@class, "inventory_item_name") and text() = "{name}"]/../../following-sibling::div/button')
 
     def product_sort_container(self):
         return self.page.locator('//select[@class="product_sort_container"]')
@@ -99,7 +99,7 @@ class Cart:
 
     def shopping_item(self, name):
         return self.page.locator(
-            f'//div[@class="inventory_item_name" and text() = "{name}"]/../following-sibling::div/button')
+            f'//div[contains(@class, "inventory_item_name") and text() = "{name}"]/../following-sibling::div/button')
 
     @allure.step
     def cart_button_click(self):
@@ -148,7 +148,7 @@ class Checkout:
         return self.page.locator('//span[@class="shopping_cart_badge"]')
 
     def cart_items_names(self):
-        elements = self.page.locator('//div[@class="inventory_item_name"]').all_text_contents()
+        elements = self.page.locator('//div[contains(@class, "inventory_item_name")]').all_text_contents()
         return elements
 
     def page_url(self):
